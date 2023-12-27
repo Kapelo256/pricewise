@@ -1,7 +1,7 @@
 "use server"
 
 import { EmailContent, EmailProductInfo, NotificationType } from '@/types';
-import nodemailer from '@/lib/nodemailer';
+
 
 const Notification = {
   WELCOME: 'WELCOME',
@@ -80,7 +80,7 @@ export async function generateEmailBody(
   return { subject, body };
 }
 
-const transporter = nodemailer.createTransport({
+/* const transporter = nodemailer.createTransport({
   pool: true,
   service: 'hotmail',
   port: 2525,
@@ -89,7 +89,7 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASSWORD,
   },
   maxConnections: 1
-})
+}) */
 
 export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) => {
   const mailOptions = {
@@ -99,9 +99,9 @@ export const sendEmail = async (emailContent: EmailContent, sendTo: string[]) =>
     subject: emailContent.subject,
   }
 
-  transporter.sendMail(mailOptions, (error: any, info: any) => {
+/*   transporter.sendMail(mailOptions, (error: any, info: any) => {
     if(error) return console.log(error);
     
     console.log('Email sent: ', info);
-  })
+  }) */
 }
