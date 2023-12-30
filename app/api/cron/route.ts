@@ -42,7 +42,7 @@ export async function GET(request: Request) {
         };
 
         // Update Products in DB
-        const updatedProduct = await Product.findOneAndUpdate(
+        const updatedProducts = await Product.findOneAndUpdate(
           {
             url: product.url,
           },
@@ -55,8 +55,8 @@ export async function GET(request: Request) {
         
         if (emailNotifType && updatedProduct.users.length > 0) {
           const productInfo = {
-            title: updatedProduct.title,
-            url: updatedProduct.url,
+            title: updatedProducts.title,
+            url: updatedProducts.url,
           };
           // Construct emailContent
           const emailContent = await generateEmailBody(productInfo, emailNotifType);
@@ -66,7 +66,7 @@ export async function GET(request: Request) {
           await sendEmail(emailContent, userEmails);
         }
 
-        return updatedProduct;
+        return updatedProducts;
       })
     );
 
