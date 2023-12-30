@@ -53,7 +53,7 @@ export async function GET(request: Request) {
         const emailNotifType = getEmailNotifType(scrapedProduct, currentProduct);
 
         
-        if (emailNotifType && updatedProduct.users.length > 0) {
+        if (emailNotifType && updatedProducts.users.length > 0) {
           const productInfo = {
             title: updatedProducts.title,
             url: updatedProducts.url,
@@ -61,7 +61,7 @@ export async function GET(request: Request) {
           // Construct emailContent
           const emailContent = await generateEmailBody(productInfo, emailNotifType);
           // Get array of user emails
-          const userEmails = updatedProduct.users.map((user: any) => user.email);
+          const userEmails = updatedProducts.users.map((user: any) => user.email);
           // Send email notification
           await sendEmail(emailContent, userEmails);
         }
